@@ -1,0 +1,8 @@
+node_modules/
+out/
+work/
+site/
+assets/fonts/
+wip/
+*.log
+.DS_Store

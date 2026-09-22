@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/big-pickle",
+  "small_model": "opencode/big-pickle",
+  "subagent_depth": 2,
+  "agent": {
+    "writer": { "model": "opencode/big-pickle" },
+    "artist": { "model": "opencode/big-pickle" },
+    "renderer": { "model": "opencode/big-pickle" },
+    "reviewer": { "model": "opencode/big-pickle" }
+  }
+}

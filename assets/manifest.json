@@ -1,0 +1,14 @@
+{
+  "actors": {
+    "worker": {
+      "poses": ["sitting", "standing"],
+      "expressions": ["stressed", "neutral"]
+    },
+    "boss": {
+      "poses": ["standing"],
+      "expressions": ["neutral"]
+    }
+  },
+  "backgrounds": ["office"],
+  "bubbleStyles": ["speech", "thought", "shout", "whisper"]
+}

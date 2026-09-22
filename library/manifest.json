@@ -1,0 +1,15 @@
+{
+  "roles": {
+    "writer": ["comic-writing", "panel-schema"],
+    "artist": ["svg-assets"],
+    "renderer": ["rough-rendering", "panel-schema", "svg-assets"],
+    "reviewer": ["verify-scoring", "panel-schema"]
+  },
+  "books": [
+    "library/comic-writing.mini.md",
+    "library/rough-rendering.mini.md",
+    "library/panel-schema.mini.md",
+    "library/svg-assets.mini.md",
+    "library/verify-scoring.mini.md"
+  ]
+}

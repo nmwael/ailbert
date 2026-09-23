@@ -29,6 +29,12 @@ function stripDate(panel, slug) {
   return typeof panel.strip?.date === 'string' && panel.strip.date ? panel.strip.date : slug;
 }
 
+function formatEU(iso) {
+  if (typeof iso !== 'string') return null;
+  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? `${m[3]}.${m[2]}.${m[1]}` : null;
+}
+
 function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
@@ -40,11 +46,12 @@ function panelBlock(strip, s, page) {
   const back = page === 'index'
     ? '    <p class="archive-link"><a href="archive.html">Archive &rarr;</a></p>\n'
     : '    <p class="archive-link"><a href="index.html">&larr; Latest</a></p>\n';
+  const eu = formatEU(strip.date);
+  const dateLine = eu ? `    <p class="date">${esc(eu)}</p>\n` : '';
   return `  <article class="strip">
     <header>
       <h2>${esc(strip.title)}</h2>
-      <p class="date">${esc(strip.date)}</p>
-    </header>
+${dateLine}    </header>
 ${images}
 ${back}  </article>`;
 }

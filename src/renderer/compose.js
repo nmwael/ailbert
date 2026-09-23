@@ -95,10 +95,115 @@ function actorSvgPath(id, pose, expression) {
   return join(HERE, 'assets', 'actors', id, `pose-${pose}`, `expr-${expression}.svg`);
 }
 
+export function createNewDom() {
+  const dom = new JSDOM('<!DOCTYPE html>', { pretendToBeVisual: true });
+  return { dom, document: dom.window.document };
+}
+
+export function buildPanelGroup({ dom, document, rc, p, i, seed, assetsDir }) {
+  const panelG = document.createElementNS(SVG_NS, 'g');
+  panelG.appendChild(rc.rectangle(0, 0, PANEL, PANEL, { fill: '#fdfdfd', seed: seed + 0x1a2b }));
+
+  const bgPath = join(assetsDir, 'backgrounds', `${p.background}.svg`);
+  const imported = importedSvgNodes(dom, bgPath);
+  const bgG = document.createElementNS(SVG_NS, 'g');
+  bgG.setAttribute('transform', 'scale(8)');
+  for (const n of imported.nodes) bgG.appendChild(document.importNode(n, true));
+  panelG.appendChild(bgG);
+
+  p.actors.forEach((a, j) => {
+    const path = actorSvgPath(a.id, a.pose, a.expression);
+    if (!path) return;
+    const { nodes, doc } = importedSvgNodes(dom, path);
+    const anchors = readAnchors(doc);
+    const scale = PANEL / 100;
+    const tx = (a.positionX / 100) * PANEL;
+    const ty = (a.positionY / 100) * PANEL;
+    const g = document.createElementNS(SVG_NS, 'g');
+    g.setAttribute('transform', `translate(${tx} ${ty}) scale(${scale}) translate(${-anchors.feet.x} ${-anchors.feet.y})`);
+    for (const n of nodes) {
+      if (n.getAttribute('id')?.startsWith('anchor-')) continue;
+      const clone = document.importNode(n, true);
+      const id = clone.getAttribute('id');
+      if (id) clone.setAttribute('id', `${a.id}-${j}-${id}`);
+      g.appendChild(clone);
+    }
+    panelG.appendChild(g);
+
+    if (p.bubble) {
+      const bubblePx = (p.bubble.targetX / 100) * PANEL;
+      const bubblePy = (p.bubble.targetY / 100) * PANEL;
+      const { w, h, lines } = bubbleSize(p.bubble.text);
+      const mouth = {
+        x: tx + (anchors.mouth.x - anchors.feet.x) * scale,
+        y: ty + (anchors.mouth.y - anchors.feet.y) * scale,
+      };
+      const drawn = drawBubble({
+        rc,
+        style: p.bubble.style,
+        cx: bubblePx,
+        cy: bubblePy,
+        w,
+        h,
+        mouthAnchor: mouth,
+        seed,
+      });
+      const bubbleG = document.createElementNS(SVG_NS, 'g');
+      for (const s of drawn.shapes) bubbleG.appendChild(s);
+      panelG.appendChild(bubbleG);
+
+      const textG = document.createElementNS(SVG_NS, 'g');
+      const firstY = bubblePy - ((lines.length - 1) / 2) * TEXT.LINE_H + TEXT.FONT * 0.3;
+      lines.forEach((line, k) => {
+        const t = document.createElementNS(SVG_NS, 'text');
+        t.setAttribute('x', String(bubblePx));
+        t.setAttribute('y', String(Math.round(firstY + k * TEXT.LINE_H)));
+        t.setAttribute('text-anchor', 'middle');
+        t.setAttribute('font-family', 'Patrick Hand');
+        t.setAttribute('font-size', String(TEXT.FONT));
+        t.setAttribute('fill', '#111');
+        t.textContent = line;
+        textG.appendChild(t);
+      });
+      panelG.appendChild(textG);
+    }
+  });
+
+  return panelG;
+}
+
+export function renderPanel(panel, i, { assetsDir = join(HERE, 'assets') } = {}) {
+  const { dom, document } = createNewDom();
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('xmlns', SVG_NS);
+  svg.setAttribute('width', String(PANEL));
+  svg.setAttribute('height', String(PANEL));
+  svg.setAttribute('viewBox', `0 0 ${PANEL} ${PANEL}`);
+  svg.setAttribute('fill', '#fdfdfd');
+
+  const rc = rough.svg(svg, {
+    options: {
+      roughness: 1.2,
+      bowing: 1,
+      stroke: '#111',
+      strokeWidth: 2,
+      fillWeight: 2,
+      hachureGap: 4,
+      disableMultiStroke: true,
+      seed: stableSeed(panel),
+    },
+  });
+
+  const seed = stableSeed(panel) + i * 0x9e37;
+  svg.appendChild(buildPanelGroup({ dom, document, rc, p: panel.panels[i], i, seed, assetsDir }));
+
+  const serializer = new dom.window.XMLSerializer();
+  return { svg: serializer.serializeToString(svg), width: PANEL, height: PANEL };
+}
+
 export function renderStrip(panel, { assetsDir = join(HERE, 'assets'), fonts = {} } = {}) {
   const man = resolveManifest();
-  const dom = new JSDOM('<!DOCTYPE html>', { pretendToBeVisual: true });
-  const { document } = dom.window;
+  const { dom, document } = createNewDom();
   const svg = document.createElementNS(SVG_NS, 'svg');
   svg.setAttribute('xmlns', SVG_NS);
   svg.setAttribute('width', String(STRIP_W));
@@ -133,79 +238,13 @@ export function renderStrip(panel, { assetsDir = join(HERE, 'assets'), fonts = {
     const seed = stableSeed(panel) + i * 0x9e37;
     const px = MARGIN + i * (PANEL + GUTTER);
     const py = TITLE_AREA;
-    const panelG = document.createElementNS(SVG_NS, 'g');
+    const panelG = buildPanelGroup({ dom, document, rc, p, i, seed, assetsDir });
     panelG.setAttribute('transform', `translate(${px} ${py})`);
     svg.appendChild(panelG);
-
-    panelG.appendChild(rc.rectangle(0, 0, PANEL, PANEL, { fill: '#fdfdfd', seed: seed + 0x1a2b }));
-
-    const bgPath = join(assetsDir, 'backgrounds', `${p.background}.svg`);
-    const imported = importedSvgNodes(dom, bgPath);
-    const bgG = document.createElementNS(SVG_NS, 'g');
-    bgG.setAttribute('transform', 'scale(8)');
-    for (const n of imported.nodes) bgG.appendChild(document.importNode(n, true));
-    panelG.appendChild(bgG);
-
-    p.actors.forEach((a, j) => {
-      const path = actorSvgPath(a.id, a.pose, a.expression);
-      if (!path) return;
-      const { nodes, doc } = importedSvgNodes(dom, path);
-      const anchors = readAnchors(doc);
-      const scale = PANEL / 100;
-      const tx = (a.positionX / 100) * PANEL;
-      const ty = (a.positionY / 100) * PANEL;
-      const g = document.createElementNS(SVG_NS, 'g');
-      g.setAttribute('transform', `translate(${tx} ${ty}) scale(${scale}) translate(${-anchors.feet.x} ${-anchors.feet.y})`);
-      for (const n of nodes) {
-        if (n.getAttribute('id')?.startsWith('anchor-')) continue;
-        const clone = document.importNode(n, true);
-        const id = clone.getAttribute('id');
-        if (id) clone.setAttribute('id', `${a.id}-${j}-${id}`);
-        g.appendChild(clone);
-      }
-      panelG.appendChild(g);
-
-      if (p.bubble) {
-        const bubblePx = (p.bubble.targetX / 100) * PANEL;
-        const bubblePy = (p.bubble.targetY / 100) * PANEL;
-        const { w, h, lines } = bubbleSize(p.bubble.text);
-        const mouth = {
-          x: tx + (anchors.mouth.x - anchors.feet.x) * scale,
-          y: ty + (anchors.mouth.y - anchors.feet.y) * scale,
-        };
-        const drawn = drawBubble({
-          rc,
-          style: p.bubble.style,
-          cx: bubblePx,
-          cy: bubblePy,
-          w,
-          h,
-          mouthAnchor: mouth,
-          seed,
-        });
-        const bubbleG = document.createElementNS(SVG_NS, 'g');
-        for (const s of drawn.shapes) bubbleG.appendChild(s);
-        panelG.appendChild(bubbleG);
-
-        const textG = document.createElementNS(SVG_NS, 'g');
-        const lineW = w - TEXT.PAD_X;
-        const firstY = bubblePy - ((lines.length - 1) / 2) * TEXT.LINE_H + TEXT.FONT * 0.3;
-        lines.forEach((line, k) => {
-          const t = document.createElementNS(SVG_NS, 'text');
-          t.setAttribute('x', String(bubblePx));
-          t.setAttribute('y', String(Math.round(firstY + k * TEXT.LINE_H)));
-          t.setAttribute('text-anchor', 'middle');
-          t.setAttribute('font-family', 'Patrick Hand');
-          t.setAttribute('font-size', String(TEXT.FONT));
-          t.setAttribute('fill', '#111');
-          t.textContent = line;
-          textG.appendChild(t);
-        });
-        void lineW;
-        panelG.appendChild(textG);
-      }
-    });
   });
+
+  void man;
+  void fonts;
 
   const serializer = new dom.window.XMLSerializer();
   return { svg: serializer.serializeToString(svg), width: STRIP_W, height: STRIP_H };

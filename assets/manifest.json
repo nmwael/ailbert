@@ -2,13 +2,33 @@
   "actors": {
     "worker": {
       "poses": ["sitting", "standing"],
-      "expressions": ["stressed", "neutral"]
+      "expressions": ["neutral", "stressed"]
     },
     "boss": {
       "poses": ["standing"],
-      "expressions": ["neutral"]
+      "expressions": ["neutral", "frustrated"]
+    },
+    "it": {
+      "poses": ["sitting", "standing"],
+      "expressions": ["neutral", "stressed"]
+    },
+    "hr": {
+      "poses": ["standing"],
+      "expressions": ["neutral", "cheerful"]
+    },
+    "intern": {
+      "poses": ["sitting", "standing"],
+      "expressions": ["neutral", "eager"]
+    },
+    "ceo": {
+      "poses": ["standing"],
+      "expressions": ["neutral", "confident"]
+    },
+    "cfo": {
+      "poses": ["standing"],
+      "expressions": ["neutral", "frustrated"]
     }
   },
-  "backgrounds": ["office"],
+  "backgrounds": ["office", "meeting-room", "cubicle", "server-room", "coffee-room", "hallway"],
   "bubbleStyles": ["speech", "thought", "shout", "whisper"]
 }

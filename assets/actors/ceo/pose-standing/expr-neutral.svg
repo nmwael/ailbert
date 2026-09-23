@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- ceo, standing, neutral — local units == % of panel when placed -->
+  <!-- legs -->
+  <path d="M 45 84 L 44 92" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M 55 84 L 56 92" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M 41 92 L 47 92" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 53 92 L 59 92" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+  <!-- torso -->
+  <path d="M 39 62 L 37 84 L 63 84 L 61 62 Z" fill="#fdfdfd" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 50 62 L 46 68 L 50 84 L 54 68 Z" fill="#fdfdfd" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/>
+  <line x1="41" y1="66" x2="47" y2="70" stroke="#111" stroke-width="1"/>
+  <line x1="59" y1="66" x2="53" y2="70" stroke="#111" stroke-width="1"/>
+  <path d="M 50 62 L 46 70 L 50 76 L 54 70 Z" fill="#111" stroke="#111" stroke-width="1"/>
+  <!-- arms -->
+  <path d="M 39 64 L 32 79 L 36 82" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 61 64 L 68 79 L 64 82" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+  <!-- neck -->
+  <line x1="50" y1="62" x2="50" y2="58" stroke="#111" stroke-width="2"/>
+  <!-- head -->
+  <ellipse cx="50" cy="50" rx="10" ry="10.5" fill="#f4c2a0" stroke="#111" stroke-width="2"/>
+<path d="M 42 46 Q 40 36 50 34 Q 60 36 58 46" fill="#111" stroke="#111" stroke-width="1.6"/>
+  <path d="M 43 45 L 57 45" fill="#fdfdfd" stroke="#111" stroke-width="1"/>
+<line x1="44" y1="46" x2="49" y2="46" stroke="#111" stroke-width="1.4"/>
+  <line x1="51" y1="46" x2="56" y2="46" stroke="#111" stroke-width="1.4"/>
+<circle cx="46" cy="50" r="1.3" fill="#111"/>
+  <circle cx="54" cy="50" r="1.3" fill="#111"/>
+<path d="M 46 54 Q 50 55.5 54 54" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
+
+
+  <!-- registration anchors -->
+  <g id="anchor-feet" data-x="50" data-y="92" transform="translate(50 92)">
+    <circle cx="0" cy="0" r="1.2" fill="#111"/>
+  </g>
+  <g id="anchor-mouth" data-x="50" data-y="60" transform="translate(50 60)">
+    <circle cx="0" cy="0" r="1" fill="#111"/>
+  </g>
+</svg>

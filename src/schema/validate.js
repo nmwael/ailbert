@@ -9,6 +9,14 @@ function isNumInRange(v, lo, hi) {
   return typeof v === 'number' && Number.isFinite(v) && v >= lo && v <= hi;
 }
 
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+function isValidDate(s) {
+  if (!DATE_RE.test(s)) return false;
+  const d = new Date(`${s}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
+}
+
 export function validate(panel, manifest = null) {
   const errors = [];
   let man = manifest;
@@ -26,6 +34,11 @@ export function validate(panel, manifest = null) {
   const strip = panel.strip;
   if (!strip || typeof strip.title !== 'string' || strip.title.trim().length === 0) {
     errors.push('strip.title: required, non-empty string');
+  }
+  if (strip && strip.date !== undefined && strip.date !== null) {
+    if (typeof strip.date !== 'string' || !isValidDate(strip.date)) {
+      errors.push(`strip.date: optional but must be an ISO YYYY-MM-DD date when present, got '${strip.date}'`);
+    }
   }
   if (!Array.isArray(panel.panels)) {
     errors.push('panels: required array');

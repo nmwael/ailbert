@@ -1,26 +1,62 @@
 {
-  "strip": { "title": "Initial Panic" },
+  "strip": {
+    "title": "Initial Panic",
+    "date": "2026-08-15"
+  },
   "panels": [
     {
       "background": "office",
       "actors": [
-        { "id": "boss", "pose": "standing", "expression": "neutral", "positionX": 68, "positionY": 90 }
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 68,
+          "positionY": 90
+        }
       ],
-      "bubble": { "text": "Our repo has one commit. From 2019.", "targetX": 58, "targetY": 20, "style": "speech" }
+      "bubble": {
+        "text": "Our repo has one commit. From 2019.",
+        "targetX": 58,
+        "targetY": 20,
+        "style": "speech"
+      }
     },
     {
       "background": "office",
       "actors": [
-        { "id": "worker", "pose": "sitting", "expression": "stressed", "positionX": 38, "positionY": 90 }
+        {
+          "id": "worker",
+          "pose": "sitting",
+          "expression": "stressed",
+          "positionX": 38,
+          "positionY": 90
+        }
       ],
-      "bubble": { "text": "We treat it as sacred legacy.", "targetX": 44, "targetY": 16, "style": "speech" }
+      "bubble": {
+        "text": "We treat it as sacred legacy.",
+        "targetX": 44,
+        "targetY": 16,
+        "style": "speech"
+      }
     },
     {
       "background": "office",
       "actors": [
-        { "id": "worker", "pose": "sitting", "expression": "neutral", "positionX": 45, "positionY": 90 }
+        {
+          "id": "worker",
+          "pose": "sitting",
+          "expression": "neutral",
+          "positionX": 45,
+          "positionY": 90
+        }
       ],
-      "bubble": { "text": "Source of truth: initial panic.", "targetX": 46, "targetY": 15, "style": "speech" }
+      "bubble": {
+        "text": "Source of truth: initial panic.",
+        "targetX": 46,
+        "targetY": 15,
+        "style": "speech"
+      }
     }
   ]
 }

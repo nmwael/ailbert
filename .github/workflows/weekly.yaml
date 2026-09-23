@@ -1,0 +1,54 @@
+name: weekly
+
+on:
+  schedule:
+    - cron: '0 22 * * 0'
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: weekly
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: bash scripts/fetch-fonts.sh
+      - name: Install opencode CLI (pinned)
+        run: npm install -g opencode-ai@1.18.32
+      - name: Generate weekly strip (schedule or manual only)
+        if: github.event_name != 'push'
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+        run: bash scripts/generate-weekly.sh
+      - name: Push generated fixtures so they persist
+        if: github.event_name != 'push'
+        run: git push origin HEAD:main
+      - name: Build the gallery
+        run: node scripts/build-site.js
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

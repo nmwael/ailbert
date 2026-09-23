@@ -11,7 +11,15 @@ const DEFAULT = {
 };
 
 function bodyOpts(style, seed, extra = {}) {
-  const opts = { ...DEFAULT, seed, ...extra };
+  // Bubble bodies are SOLID: opaque paper fill under the text, ink rough outline.
+  // Only the outline varies by style (dashed for whisper/thought, rectangle for shout).
+  const opts = {
+    ...DEFAULT,
+    seed,
+    fill: '#fdfdfd',
+    fillStyle: 'solid',
+    ...extra,
+  };
   if (style === 'whisper' || style === 'thought') opts.strokeLineDash = [4, 4];
   return opts;
 }
@@ -71,16 +79,16 @@ export function drawBubble({
   const shapes = [];
   let edge;
   if (style === 'shout') {
-    shapes.push(rc.rectangle(cx - hw, cy - hh, w, h, bodyOpts(style, seed, { fill: '#fff', fillStyle: 'hachure' })));
+    shapes.push(rc.rectangle(cx - hw, cy - hh, w, h, bodyOpts(style, seed)));
     edge = rectBoundaryPoint(cx, cy, hw, hh, dx, dy);
   } else {
-    shapes.push(rc.ellipse(cx, cy, w, h, bodyOpts(style, seed, { fill: '#fff', fillStyle: 'hachure' })));
+    shapes.push(rc.ellipse(cx, cy, w, h, bodyOpts(style, seed)));
     edge = ellipseBoundaryPoint(cx, cy, hw, hh, dx, dy);
   }
 
   if (style === 'thought' && Math.hypot(m.x - cx, m.y - cy) > 6) {
-    shapes.push(rc.circle(cx + (m.x - cx) * 0.55, cy + (m.y - cy) * 0.55, 7, bodyOpts(style, seed + 1, { fill: '#fff' })));
-    shapes.push(rc.circle(cx + (m.x - cx) * 0.78, cy + (m.y - cy) * 0.78, 4, bodyOpts(style, seed + 2, { fill: '#fff' })));
+    shapes.push(rc.circle(cx + (m.x - cx) * 0.55, cy + (m.y - cy) * 0.55, 7, bodyOpts(style, seed + 1)));
+    shapes.push(rc.circle(cx + (m.x - cx) * 0.78, cy + (m.y - cy) * 0.78, 4, bodyOpts(style, seed + 2)));
   }
 
   const span = Math.hypot(m.x - edge.x, m.y - edge.y);
@@ -92,7 +100,7 @@ export function drawBubble({
       [edge.x - uy * base, edge.y + ux * base],
       [edge.x + uy * base, edge.y - ux * base],
       [m.x, m.y],
-    ], bodyOpts(style, seed + 3, { fill: '#fff', fillStyle: 'hachure' })));
+    ], bodyOpts(style, seed + 3)));
   }
 
   return { shapes, geometry: { cx, cy, w, h } };

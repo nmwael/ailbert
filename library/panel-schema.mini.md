@@ -1,4 +1,4 @@
-# panel-schema (mini) — v0.1
+# panel-schema (mini) — v0.2
 
 Contract for panel JSON. Read by writer, renderer, reviewer.
 
@@ -6,7 +6,7 @@ Contract for panel JSON. Read by writer, renderer, reviewer.
 
 ```json
 {
-  "strip": { "title": "string" },
+  "strip": { "title": "string", "date": "YYYY-MM-DD" },
   "panels": [ /* EXACTLY 3 objects */ ],
   "panels[].background": "office",
   "panels[].actors": [ { "id", "pose", "expression", "positionX", "positionY" } ],
@@ -34,6 +34,7 @@ Contract for panel JSON. Read by writer, renderer, reviewer.
 | field | rule |
 |---|---|
 | strip.title | string, required |
+| strip.date | optional; ISO `YYYY-MM-DD` when present (fixtures SHOULD set it; used for site ordering) |
 | panels | array, length === 3 |
 | panels[].background | known id |
 | actors[].id/pose/expression | known triple in manifest |
@@ -51,6 +52,16 @@ Contract for panel JSON. Read by writer, renderer, reviewer.
 New scenes/poses/expressions are added to **the manifest + SVGs** (artist
 scope), NOT by changing this schema. Schema changes require architect plan +
 human approval.
+
+## Committed fixtures (4)
+
+- `fixtures/sample/` — reference gag (no committed PNG; render on demand).
+- `fixtures/golden-1/` + `fixtures/golden-2/` — determinism regression set.
+- `fixtures/weekly-demo-2026-08-20/` — demo archive strip (uses `ceo`/`cfo`/
+  `intern` + `meeting-room`); proves the archive page has content beyond the
+  newest 3.
+- Weekly strips land as `fixtures/weekly-YYYY-MM-DD/{panel.json,strip.png,
+  panel-0..2.png}`. `npm run test` enforces golden determinism.
 
 ## Example — good
 

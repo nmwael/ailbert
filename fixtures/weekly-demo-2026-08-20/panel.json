@@ -1,0 +1,62 @@
+{
+  "strip": {
+    "title": "The Roadmap",
+    "date": "2026-07-27"
+  },
+  "panels": [
+    {
+      "background": "meeting-room",
+      "actors": [
+        {
+          "id": "cfo",
+          "pose": "standing",
+          "expression": "frustrated",
+          "positionX": 25,
+          "positionY": 90
+        }
+      ],
+      "bubble": {
+        "text": "Coffee is cut. The AI roadmap depends on it.",
+        "targetX": 50,
+        "targetY": 12,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "meeting-room",
+      "actors": [
+        {
+          "id": "ceo",
+          "pose": "standing",
+          "expression": "confident",
+          "positionX": 73,
+          "positionY": 90
+        }
+      ],
+      "bubble": {
+        "text": "Our standups are synergistically aligned.",
+        "targetX": 44,
+        "targetY": 12,
+        "style": "shout"
+      }
+    },
+    {
+      "background": "meeting-room",
+      "actors": [
+        {
+          "id": "intern",
+          "pose": "sitting",
+          "expression": "eager",
+          "positionX": 48,
+          "positionY": 90
+        }
+      ],
+      "bubble": {
+        "text": "Espresso is now a sprint goal.",
+        "targetX": 50,
+        "targetY": 12,
+        "style": "thought"
+      }
+    }
+  ]
+}

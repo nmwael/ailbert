@@ -1,26 +1,62 @@
 {
-  "strip": { "title": "Standup 2.0" },
+  "strip": {
+    "title": "Standup 2.0",
+    "date": "2026-09-01"
+  },
   "panels": [
     {
       "background": "office",
       "actors": [
-        { "id": "boss", "pose": "standing", "expression": "neutral", "positionX": 68, "positionY": 90 }
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 68,
+          "positionY": 90
+        }
       ],
-      "bubble": { "text": "The AI runs standups now. Efficient.", "targetX": 50, "targetY": 22, "style": "speech" }
+      "bubble": {
+        "text": "The AI runs standups now. Efficient.",
+        "targetX": 50,
+        "targetY": 22,
+        "style": "speech"
+      }
     },
     {
       "background": "office",
       "actors": [
-        { "id": "worker", "pose": "sitting", "expression": "stressed", "positionX": 38, "positionY": 90 }
+        {
+          "id": "worker",
+          "pose": "sitting",
+          "expression": "stressed",
+          "positionX": 38,
+          "positionY": 90
+        }
       ],
-      "bubble": { "text": "It scheduled a meeting about itself.", "targetX": 44, "targetY": 15, "style": "thought" }
+      "bubble": {
+        "text": "It scheduled a meeting about itself.",
+        "targetX": 44,
+        "targetY": 15,
+        "style": "thought"
+      }
     },
     {
       "background": "office",
       "actors": [
-        { "id": "worker", "pose": "sitting", "expression": "neutral", "positionX": 48, "positionY": 90 }
+        {
+          "id": "worker",
+          "pose": "sitting",
+          "expression": "neutral",
+          "positionX": 48,
+          "positionY": 90
+        }
       ],
-      "bubble": { "text": "Review topic: are we aligned enough?", "targetX": 46, "targetY": 15, "style": "speech" }
+      "bubble": {
+        "text": "Review topic: are we aligned enough?",
+        "targetX": 46,
+        "targetY": 15,
+        "style": "speech"
+      }
     }
   ]
 }

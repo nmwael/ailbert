@@ -20,9 +20,17 @@ Condensed reference for the ailbert **writer**. Read with
 
 - `worker` — the straight man; stressed is his resting face.
 - `boss` / pointy-haired boss — confident, wrong, unaccountable.
-- HR, IT, intern — available only if enumerated in `assets/manifest.json`.
+- `it` — glasses + hoodie; owns everything, fixes nothing. Stressed even when
+  just standing by.
+- `hr` — cheerful, clipboard, suspiciously encouraging.
+- `intern` — beanie + backpack; eager, cheap, disposable optimism.
+- `ceo` — slicked hair + tie; confident about things he does not understand.
+- `cfo` — balding + tie; frustrated, fluent in budget and headcount.
 - **Rule:** archetypes are visual ids. You may only name an id/pose/expression
   that exists in the manifest. Never invent one.
+- **Scene ideas** (manifest-only backgrounds): `office`, `meeting-room`,
+  `cubicle`, `server-room`, `coffee-room`, `hallway`. Pick the one that
+  undercuts or fits the joke (e.g. synergy talk in `server-room`).
 
 ## 3. Beat structure (3 panels, exactly)
 

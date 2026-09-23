@@ -1,26 +1,62 @@
 {
-  "strip": { "title": "LLM Strategy" },
+  "strip": {
+    "title": "LLM Strategy",
+    "date": "2026-08-01"
+  },
   "panels": [
     {
       "background": "office",
       "actors": [
-        { "id": "boss", "pose": "standing", "expression": "neutral", "positionX": 68, "positionY": 90 }
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 68,
+          "positionY": 90
+        }
       ],
-      "bubble": { "text": "The LLM wrote our strategy.", "targetX": 58, "targetY": 20, "style": "speech" }
+      "bubble": {
+        "text": "The LLM wrote our strategy.",
+        "targetX": 58,
+        "targetY": 20,
+        "style": "speech"
+      }
     },
     {
       "background": "office",
       "actors": [
-        { "id": "worker", "pose": "sitting", "expression": "stressed", "positionX": 38, "positionY": 90 }
+        {
+          "id": "worker",
+          "pose": "sitting",
+          "expression": "stressed",
+          "positionX": 38,
+          "positionY": 90
+        }
       ],
-      "bubble": { "text": "It hallucinated the meeting minutes.", "targetX": 43, "targetY": 16, "style": "thought" }
+      "bubble": {
+        "text": "It hallucinated the meeting minutes.",
+        "targetX": 43,
+        "targetY": 16,
+        "style": "thought"
+      }
     },
     {
       "background": "office",
       "actors": [
-        { "id": "worker", "pose": "sitting", "expression": "neutral", "positionX": 45, "positionY": 90 }
+        {
+          "id": "worker",
+          "pose": "sitting",
+          "expression": "neutral",
+          "positionX": 45,
+          "positionY": 90
+        }
       ],
-      "bubble": { "text": "Close enough. It has a deck.", "targetX": 46, "targetY": 16, "style": "shout" }
+      "bubble": {
+        "text": "Close enough. It has a deck.",
+        "targetX": 46,
+        "targetY": 16,
+        "style": "shout"
+      }
     }
   ]
 }

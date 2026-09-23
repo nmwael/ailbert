@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- cfo, standing, frustrated — local units == % of panel when placed -->
+  <!-- legs -->
+  <path d="M 45 84 L 44 92" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M 55 84 L 56 92" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M 41 92 L 47 92" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 53 92 L 59 92" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+  <!-- torso -->
+  <path d="M 39 62 L 37 84 L 63 84 L 61 62 Z" fill="#fdfdfd" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M 50 62 L 46 68 L 50 84 L 54 68 Z" fill="#fdfdfd" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M 50 62 L 46 70 L 50 76 L 54 70 Z" fill="#111" stroke="#111" stroke-width="1"/>
+  <!-- arms -->
+  <path d="M 39 64 L 32 79 L 36 82" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 61 64 L 68 79 L 64 82" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+  <!-- neck -->
+  <line x1="50" y1="62" x2="50" y2="58" stroke="#111" stroke-width="2"/>
+  <!-- head -->
+  <ellipse cx="50" cy="50" rx="10" ry="10.5" fill="#f4c2a0" stroke="#111" stroke-width="2"/>
+<path d="M 42 45 Q 44 39 50 39 Q 56 39 58 45" fill="none" stroke="#111" stroke-width="2"/>
+  <path d="M 42 45 Q 46 43 50 43 Q 54 43 58 45" fill="#111" stroke="#111" stroke-width="1"/>
+<line x1="43" y1="44" x2="48" y2="46.5" stroke="#111" stroke-width="1.4"/>
+  <line x1="57" y1="44" x2="52" y2="46.5" stroke="#111" stroke-width="1.4"/>
+<circle cx="46" cy="50" r="1.3" fill="#111"/>
+  <circle cx="54" cy="50" r="1.3" fill="#111"/>
+<path d="M 46 54 Q 50 52 54 54" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M 45 34 Q 43 31 45 28" fill="none" stroke="#111" stroke-width="1.2"/>
+  <path d="M 55 34 Q 57 31 55 28" fill="none" stroke="#111" stroke-width="1.2"/>
+
+  <!-- registration anchors -->
+  <g id="anchor-feet" data-x="50" data-y="92" transform="translate(50 92)">
+    <circle cx="0" cy="0" r="1.2" fill="#111"/>
+  </g>
+  <g id="anchor-mouth" data-x="50" data-y="60" transform="translate(50 60)">
+    <circle cx="0" cy="0" r="1" fill="#111"/>
+  </g>
+</svg>

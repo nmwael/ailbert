@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
-import { renderStrip } from './compose.js';
+import { renderStrip, renderPanel, PANEL } from './compose.js';
 import { validate } from '../schema/validate.js';
 import { buildResvgFontConfig } from './font.js';
 
@@ -26,12 +26,12 @@ function render(panelPath) {
     process.exit(1);
   }
   const { svg, width, height } = renderStrip(panel);
+  const font = buildResvgFontConfig();
 
   mkdirSync(join(root, 'out'), { recursive: true });
   const svgOut = join(root, 'out', 'strip.svg');
   writeFileSync(svgOut, svg);
 
-  const font = buildResvgFontConfig();
   const resvg = new Resvg(svg, {
     fitTo: { mode: 'width', value: 800 },
     font,
@@ -40,6 +40,21 @@ function render(panelPath) {
   const pngData = resvg.render().asPng();
   const pngOut = join(root, 'out', 'strip.png');
   writeFileSync(pngOut, pngData);
+
+  panel.panels.forEach((p, i) => {
+    const { svg: panelSvg } = renderPanel(panel, i);
+    const panelSvgOut = join(root, 'out', `panel-${i}.svg`);
+    writeFileSync(panelSvgOut, panelSvg);
+    const panelResvg = new Resvg(panelSvg, {
+      fitTo: { mode: 'width', value: 800 },
+      font,
+      background: '#fdfdfd',
+    });
+    const panelPng = panelResvg.render().asPng();
+    const panelPngOut = join(root, 'out', `panel-${i}.png`);
+    writeFileSync(panelPngOut, panelPng);
+    console.log(`panel-${i}.png  -> ${panelPngOut} (${PANEL}x${PANEL})`);
+  });
 
   console.log(`strip.svg  -> ${svgOut}`);
   console.log(`strip.png  -> ${pngOut} (${width}x${height} viewBox, 800px wide PNG)`);

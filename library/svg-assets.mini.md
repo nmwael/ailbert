@@ -9,8 +9,6 @@ assets/actors/<id>/pose-<pose>/expr-<expression>.svg
 assets/backgrounds/<scene>.svg
 assets/manifest.json
 ```
-- ids: `worker`, `boss`; poses: worker `sitting|standing`, boss `standing`;
-  expressions: worker `stressed|neutral`, boss `neutral`; scene: `office`.
 
 ## 2. SVG contract
 
@@ -28,12 +26,20 @@ assets/manifest.json
 - Black hachured / hand-drawn linework only. **No gradients, no blur, no
   drop-shadows.** Match rough.js sketchy energy.
 
-## 4. Canonical pose/expression sets
+## 4. Canonical pose/expression sets (Maximal set)
 
-| id | poses | expressions |
-|---|---|---|
-| worker | sitting, standing | stressed, neutral |
-| boss | standing | neutral |
+| id | poses | expressions | signature props |
+|---|---|---|---|
+| worker | sitting, standing | neutral, stressed | plain short hair |
+| boss | standing | neutral, frustrated | pointy hair, tie |
+| it | sitting, standing | neutral, stressed | glasses, hoodie |
+| hr | standing | neutral, cheerful | hair bun, clipboard |
+| intern | sitting, standing | neutral, eager | beanie, backpack strap |
+| ceo | standing | neutral, confident | slicked hair, tie |
+| cfo | standing | neutral, frustrated | balding, tie |
+
+`assets/backgrounds/` (all 6 committed):
+`office`, `meeting-room`, `cubicle`, `server-room`, `coffee-room`, `hallway`.
 
 Anything beyond this must be added to the manifest (with the SVG) by the artist,
 with architect approval.
@@ -41,8 +47,8 @@ with architect approval.
 ## 5. manifest.json contract
 
 ```json
-{ "actors": { "worker": {"poses":[...], "expressions":[...]}, "boss": {...} },
-  "backgrounds": ["office"],
+{ "actors": { "worker": {"poses":[...], "expressions":[...]}, ... },
+  "backgrounds": ["office", "meeting-room", "cubicle", "server-room", "coffee-room", "hallway"],
   "bubbleStyles": ["speech","thought","shout","whisper"] }
 ```
 - The manifest is the **anti-hallucination hard gate**: the writer may only name

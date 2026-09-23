@@ -29,3 +29,16 @@ before answering in your domain. Terse bullets, concrete examples, no filler.
   here as a writing checklist, not quoted). ailbert is a parody homage;
   Dilbert is a trademark of its respective owner; no affiliation.
 - **jsdom** — MIT (HTML/DOM environment for rough.svg headless).
+
+## Site & CI
+
+- `scripts/build-site.js` v2 builds `site/index.html` (newest 3 strips, panels
+  stacked full-width), `site/archive.html` (everything older), and
+  `site/strips.json` (per-panel paths + dates). CI regenerates `site/` from the
+  committed fixtures; it is gitignored.
+- `.github/workflows/pages.yaml` deploys Pages on push.
+- `.github/workflows/weekly.yaml` — Sunday-night cron (23:15 UTC) +
+  `workflow_dispatch`: installs the pinned `opencode-ai` CLI, runs
+  `scripts/generate-weekly.sh` (writer model proposes panel JSON → render →
+  verify → commit `fixtures/weekly-YYYY-MM-DD/`), then rebuilds + redeploys
+  the site. Requires the `OPENCODE_API_KEY` repo secret.

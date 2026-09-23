@@ -50,9 +50,46 @@ and prints feedback; the agentic revision happens outside the shell.
 The gallery is published at **https://nmwael.github.io/ailbert** by
 `.github/workflows/pages.yaml`: on every push to `main` (or via
 `workflow_dispatch`) it runs `npm ci`, fetches fonts, and `node
-scripts/build-site.js` builds `site/index.html` + `site/strips.json` from the
-committed fixtures, then deploys with `actions/deploy-pages`. The built
-`site/` directory is gitignored; CI regenerates it from `fixtures/`.
+scripts/build-site.js` builds `site/` from the committed fixtures, then
+deploys with `actions/deploy-pages`. The built `site/` directory is
+gitignored; CI regenerates it from `fixtures/`.
+
+`site/index.html` shows the **newest 3 strips** with their three panels stacked
+full-width; every older strip lives under **`site/archive.html`** (linked from
+the front page). `site/strips.json` is the machine feed
+(`{ slug, title, date, panels[], pathCombined }`).
+
+## Weekly workflow
+
+`.github/workflows/weekly.yaml` produces a **fresh strip every week**:
+
+- **Schedule:** Sunday 22:00 UTC (cron `0 22 * * 0`) so a new strip is waiting
+  Monday morning; also runs on `workflow_dispatch` (manual) and on push (site
+  rebuild only — a strip is not generated on plain pushes).
+- **Secret:** the repo must define `OPENCODE_API_KEY` (a hosted opencode token).
+- **Pipeline:** install the pinned `opencode-ai` CLI → `bash
+  scripts/generate-weekly.sh` (the writer model proposes a gag as schema-valid
+  panel JSON; `render-strip.js` materializes it; `verify_strip.js` scores it,
+  feeding `out/verify.json` feedback back for up to 3 attempts) → on pass it
+  commits `fixtures/weekly-YYYY-MM-DD/{panel.json,strip.png,panel-0..2.png}` →
+  the site is rebuilt and deployed to Pages.
+- **Local dry-run:** with `OPENCODE_API_KEY` unset, `bash
+  scripts/generate-weekly.sh` exits 1 with a clear message and never calls a
+  model.
+
+### Adding a strip manually
+
+Create `fixtures/<slug>/panel.json` (schema per `library/panel-schema.mini.md`,
+set `strip.date`), then:
+
+```bash
+node src/renderer/render-strip.js --panel fixtures/<slug>/panel.json
+node scripts/verify_strip.js  --panel fixtures/<slug>/panel.json   # exit 0 to pass
+cp out/strip.png fixtures/<slug>/strip.png
+cp out/panel-0.png out/panel-1.png out/panel-2.png fixtures/<slug>/
+```
+
+`npm run site` rebuilds the local gallery including the new strip.
 
 ## Repo guide
 

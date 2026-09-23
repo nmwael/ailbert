@@ -42,10 +42,16 @@ fillWeight, hachureAngle, hachureGap, disableMultiStroke, simplification }`.
 ## 5. Bubble primitive recipe (hand-rolled)
 
 - **comical-js is a PHANTOM package — 404 on npm. NEVER use it.**
-- Speech: ellipse body, fill `#fff`, hachure; thought: dashed/cloud ellipse;
-  shout: rectangle; whisper: dashed ellipse.
+- **Every bubble BODY is SOLID fill** (`#fdfdfd`, `fillStyle: 'solid'`) with the
+  ink `#111` rough outline — text must sit on opaque paper, never hachure.
+  Style only changes the outline/body shape: speech = solid ellipse; thought =
+  solid dashed ellipse + cloud dots; shout = solid rectangle; whisper = solid
+  ellipse with dashed ink outline.
 - Tail = polygon from the body **EDGE point nearest the speaker** to the actor's
   **mouth anchor**; clamp body inside panel; switch attach side near edges.
+- Z-order: background < actors < **bubble-body-fill** < bubble-text
+  (`src/renderer/rough-bubble.js` returns shapes; the compose layer appends
+  bubble body first, then the `<text>` group).
 
 ## 6. Text + font
 

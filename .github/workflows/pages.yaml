@@ -27,7 +27,7 @@ jobs:
       - run: bash scripts/fetch-fonts.sh
       - run: node scripts/build-site.js
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: site/
   deploy:

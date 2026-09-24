@@ -20,6 +20,7 @@ fi
 
 mkdir -p "$ROOT/out" "$WORK_DIR"
 : > "$FEEDBACK_FILE"
+printf '%s' '{"tokens":{"total":0,"input":0,"output":0,"reasoning":0},"cost":0}' > "$WORK_DIR/usage-total.json"
 
 echo "[generate-weekly] slug=$SLUG max-iters=$MAX_ITERS"
 
@@ -100,7 +101,7 @@ PROMPT
 
   echo "[generate-weekly] invoking opencode CLI (opencode/big-pickle)..."
   set +e
-  opencode run --model opencode/big-pickle --format default "$(cat "$PROMPT_FILE")" > "$RESPONSE_FILE" 2>> "$WORK_DIR/opencode.err"
+  opencode run --model opencode/big-pickle --format json "$(cat "$PROMPT_FILE")" > "$RESPONSE_FILE" 2>> "$WORK_DIR/opencode.err"
   OC_EXIT=$?
   set -e
   if [[ $OC_EXIT -ne 0 ]]; then
@@ -112,15 +113,43 @@ PROMPT
 
   node --input-type=commonjs -e "
     const fs = require('fs');
-    const raw = fs.readFileSync('$RESPONSE_FILE', 'utf8').trim();
-    const fenced = raw.replace(/^[\s\S]*?\`\`\`(?:json)?/i, '').replace(/\`\`\`[\s\S]*$/, '');
-    let text = fenced.trim() || raw;
+    fs.rmSync('$PANEL_FILE', { force: true });
+    let text = '';
+    let total = 0, input = 0, output = 0, reasoning = 0, cost = 0;
+    for (const line of fs.readFileSync('$RESPONSE_FILE', 'utf8').split('\n')) {
+      if (!line.trim()) continue;
+      let e;
+      try { e = JSON.parse(line); } catch { continue; }
+      if (e && e.type === 'text' && e.part && e.part.type === 'text') text += e.part.text;
+      if (e && e.type === 'step_finish' && e.part) {
+        const t = e.part.tokens || {};
+        total += t.total || 0;
+        input += t.input || 0;
+        output += t.output || 0;
+        reasoning += t.reasoning || 0;
+        cost += e.part.cost || 0;
+      }
+    }
+    const usage = { tokens: { total, input, output, reasoning }, cost };
+    fs.writeFileSync('$ITER_DIR/usage.json', JSON.stringify(usage, null, 2) + '\n');
+    const totalPath = '$WORK_DIR/usage-total.json';
+    let acc;
+    try { acc = JSON.parse(fs.readFileSync(totalPath, 'utf8')); } catch { acc = null; }
+    if (!acc || !acc.tokens) acc = { tokens: { total: 0, input: 0, output: 0, reasoning: 0 }, cost: 0 };
+    acc.tokens.total += total;
+    acc.tokens.input += input;
+    acc.tokens.output += output;
+    acc.tokens.reasoning += reasoning;
+    acc.cost += cost;
+    fs.writeFileSync(totalPath, JSON.stringify(acc, null, 2) + '\n');
     const start = text.indexOf('{');
     const end = text.lastIndexOf('}');
     if (start < 0 || end < start) { console.error('no JSON object found'); process.exit(1); }
-    const obj = JSON.parse(text.slice(start, end + 1));
+    let obj;
+    try { obj = JSON.parse(text.slice(start, end + 1)); }
+    catch (err) { console.error('JSON parse failed: ' + err.message); process.exit(1); }
     if (!obj.strip || !Array.isArray(obj.panels)) { console.error('not a panel object'); process.exit(1); }
-    fs.writeFileSync('$PANEL_FILE', JSON.stringify(obj, null, 2));
+    fs.writeFileSync('$PANEL_FILE', JSON.stringify(obj, null, 2) + '\n');
     console.log('parsed panel JSON (' + obj.panels.length + ' panels)');
   " && echo "parsed" > "$ITER_DIR/parsed.ok" || {
     echo "model output was not a valid panel JSON" >> "$FEEDBACK_FILE"
@@ -154,6 +183,13 @@ PROMPT
     cp "$ROOT/out/panel-0.png" "$ROOT/out/panel-1.png" "$ROOT/out/panel-2.png" "$FIXTURE_DIR/"
     echo "[generate-weekly] PASS on attempt $iter/$MAX_ITERS"
     cat "$WORK_DIR/attempt-$iter/verify.log"
+
+    node --input-type=commonjs -e "
+      const fs = require('fs');
+      const usage = JSON.parse(fs.readFileSync('$WORK_DIR/usage-total.json', 'utf8'));
+      usage.attempts = $iter;
+      fs.writeFileSync('$FIXTURE_DIR/usage.json', JSON.stringify(usage, null, 2) + '\n');
+    "
 
     git config user.name "github-actions[bot]"
     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

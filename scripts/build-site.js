@@ -39,15 +39,15 @@ function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function panelBlock(strip, s, page) {
+function panelBlock(strip, s) {
   const images = s.panels.map(
     (p) => `      <img class="panel" src="${p.src}" alt="${esc(strip.title)} panel ${p.index + 1}" loading="lazy">`
   ).join('\n');
-  const back = page === 'index'
-    ? '    <p class="archive-link"><a href="archive.html">Archive &rarr;</a></p>\n'
-    : '    <p class="archive-link"><a href="index.html">&larr; Latest</a></p>\n';
   const eu = formatEU(strip.date);
   const dateLine = eu ? `    <p class="date">${esc(eu)}</p>\n` : '';
+  const usageNote = s.usage
+    ? `    <p class="usage-note">generated in ${s.usage.attempts} attempt${s.usage.attempts === 1 ? '' : 's'} · ${s.usage.tokens.total.toLocaleString('en-US')} tokens · $${s.usage.cost.toFixed(4)}</p>\n`
+    : '';
   return `  <article class="strip">
     <header>
       <h2>${esc(strip.title)}</h2>
@@ -55,10 +55,10 @@ ${dateLine}    </header>
     <div class="panels">
 ${images}
     </div>
-${back}  </article>`;
+${usageNote}  </article>`;
 }
 
-function page(title, intro, stripsHtml, strips) {
+function page(title, intro, navLink, stripsHtml, strips) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,8 +73,6 @@ function page(title, intro, stripsHtml, strips) {
     header.site { text-align:center; padding:2.5rem 1rem 1rem; }
     header.site h1 { font-style:italic; font-size:2.4rem; margin:0; }
     header.site p { margin:.4rem auto 0; max-width:44rem; opacity:.8; }
-    header.site .source-link { margin:1rem auto 0; font-size:.85rem; }
-    header.site .source-link a { color:var(--ink); text-decoration:underline; }
     main { max-width:1200px; margin:0 auto; padding:1.5rem 1rem 3rem; }
     article.strip { background:var(--paper); border:1px solid rgba(17,17,17,.15);
       box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:2.5rem; overflow:hidden; }
@@ -83,7 +81,9 @@ function page(title, intro, stripsHtml, strips) {
     article.strip .date { margin:.15rem 0 0; font-size:.85rem; opacity:.6; }
     article.strip .panels { display:flex; flex-wrap:nowrap; gap:8px; }
     article.strip .panels img.panel { display:block; flex:1 1 0; min-width:0; width:100%; height:auto; }
-    article.strip .archive-link { padding:.8rem 1.5rem 1rem; }
+    article.strip .usage-note { margin:0; padding:.4rem 1.5rem .8rem; font-size:.8rem; opacity:.6; text-align:right; }
+    .bottom-nav { text-align:center; padding:1.5rem 0 .5rem; font-size:1.05rem; }
+    .bottom-nav a { color:var(--ink); text-decoration:underline; }
     @media (max-width:640px) {
       article.strip .panels { flex-wrap:wrap; }
       article.strip .panels img.panel { flex:1 1 100%; }
@@ -95,10 +95,10 @@ function page(title, intro, stripsHtml, strips) {
   <header class="site">
     <h1>ailbert</h1>
     <p>${intro}</p>
-    <p class="source-link"><a href="https://github.com/nmwael/ailbert" target="_blank" rel="noopener">View source on GitHub</a></p>
   </header>
   <main>
-${stripsHtml}  </main>
+${stripsHtml}    <p class="bottom-nav">${navLink}</p>
+  </main>
   <footer>ailbert — MIT licensed. New strips every week from the weekly workflow.
     Dilbert-style homage; not affiliated with Scott Adams or the Dilbert franchise.</footer>
 </body>
@@ -117,10 +117,15 @@ function main() {
     const panelPath = join(FIXTURES, slug, 'panel.json');
     const panel = JSON.parse(readFileSync(panelPath, 'utf8'));
     const date = stripDate(panel, slug);
+    let usage;
+    if (exists(FIXTURES, `${slug}/usage.json`)) {
+      usage = JSON.parse(readFileSync(join(FIXTURES, slug, 'usage.json'), 'utf8'));
+    }
     strips.push({
       slug,
       title: panel.strip.title,
       date,
+      usage,
       panels: PANEL_NAMES.map((name, i) => ({ src: `strips/${slug}/${name}`, index: i })),
       pathCombined: `strips/${slug}/strip.png`,
     });
@@ -139,14 +144,15 @@ function main() {
   }
 
   const archiveCount = older.length;
-  const indexBody = latest.map((s) => panelBlock(s, s, 'index')).join('\n');
-  const archiveBody = older.map((s) => panelBlock(s, s, 'archive')).join('\n');
+  const indexBody = latest.map((s) => panelBlock(s, s)).join('\n');
+  const archiveBody = older.map((s) => panelBlock(s, s)).join('\n');
 
   const intro = 'AI-generated, Dilbert-style comic strips — proposed by a writer agent, materialized by a deterministic rough.js renderer, verified by a scorer. New strips every week.';
 
   writeFileSync(join(SITE, 'index.html'), page(
     'ailbert — AI-generated Dilbert-style strips',
     intro,
+    '<a href="archive.html">Archive &rarr;</a>',
     indexBody,
     latest
   ));
@@ -155,6 +161,7 @@ function main() {
     archiveCount
       ? `Older strips (${archiveCount}) — the newest ${latest.length} are on the front page.`
       : 'No archived strips yet — check back after the weekly workflow runs.',
+    '<a href="index.html">&larr; Latest</a>',
     archiveBody,
     older
   ));

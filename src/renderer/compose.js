@@ -100,17 +100,30 @@ export function createNewDom() {
   return { dom, document: dom.window.document };
 }
 
+export const LAYER_Z = { back: -10, main: 0, front: 10 };
+
+function clamp(v, lo, hi) {
+  return Math.min(hi, Math.max(lo, v));
+}
+
 export function buildPanelGroup({ dom, document, rc, p, i, seed, assetsDir }) {
   const panelG = document.createElementNS(SVG_NS, 'g');
   panelG.appendChild(rc.rectangle(0, 0, PANEL, PANEL, { fill: '#fdfdfd', seed: seed + 0x1a2b }));
 
+  const paint = [];
+
   const bgPath = join(assetsDir, 'backgrounds', `${p.background}.svg`);
   const imported = importedSvgNodes(dom, bgPath);
-  const bgG = document.createElementNS(SVG_NS, 'g');
-  bgG.setAttribute('transform', 'scale(8)');
-  for (const n of imported.nodes) bgG.appendChild(document.importNode(n, true));
-  panelG.appendChild(bgG);
+  for (const n of imported.nodes) {
+    let z = Number(n.getAttribute('data-z') || 0);
+    if (!Number.isFinite(z)) z = 0;
+    const wrap = document.createElementNS(SVG_NS, 'g');
+    wrap.setAttribute('transform', 'scale(8)');
+    wrap.appendChild(document.importNode(n, true));
+    paint.push({ kind: 'bg', z, el: wrap });
+  }
 
+  const mouths = [];
   p.actors.forEach((a, j) => {
     const path = actorSvgPath(a.id, a.pose, a.expression);
     if (!path) return;
@@ -128,45 +141,62 @@ export function buildPanelGroup({ dom, document, rc, p, i, seed, assetsDir }) {
       if (id) clone.setAttribute('id', `${a.id}-${j}-${id}`);
       g.appendChild(clone);
     }
-    panelG.appendChild(g);
+    const z = LAYER_Z[a.layer] ?? LAYER_Z.main;
+    paint.push({ kind: 'actor', z, el: g });
+    mouths.push({
+      x: tx + (anchors.mouth.x - anchors.feet.x) * scale,
+      y: ty + (anchors.mouth.y - anchors.feet.y) * scale,
+    });
+  });
 
-    if (p.bubble) {
-      const bubblePx = (p.bubble.targetX / 100) * PANEL;
-      const bubblePy = (p.bubble.targetY / 100) * PANEL;
-      const { w, h, lines } = bubbleSize(p.bubble.text);
-      const mouth = {
-        x: tx + (anchors.mouth.x - anchors.feet.x) * scale,
-        y: ty + (anchors.mouth.y - anchors.feet.y) * scale,
-      };
-      const drawn = drawBubble({
-        rc,
-        style: p.bubble.style,
-        cx: bubblePx,
-        cy: bubblePy,
-        w,
-        h,
-        mouthAnchor: mouth,
-        seed,
-      });
-      const bubbleG = document.createElementNS(SVG_NS, 'g');
-      for (const s of drawn.shapes) bubbleG.appendChild(s);
-      panelG.appendChild(bubbleG);
+  paint.sort((u, v) => u.z - v.z);
+  for (const item of paint) panelG.appendChild(item.el);
 
-      const textG = document.createElementNS(SVG_NS, 'g');
-      const firstY = bubblePy - ((lines.length - 1) / 2) * TEXT.LINE_H + TEXT.FONT * 0.3;
-      lines.forEach((line, k) => {
-        const t = document.createElementNS(SVG_NS, 'text');
-        t.setAttribute('x', String(bubblePx));
-        t.setAttribute('y', String(Math.round(firstY + k * TEXT.LINE_H)));
-        t.setAttribute('text-anchor', 'middle');
-        t.setAttribute('font-family', 'Patrick Hand');
-        t.setAttribute('font-size', String(TEXT.FONT));
-        t.setAttribute('fill', '#111');
-        t.textContent = line;
-        textG.appendChild(t);
-      });
-      panelG.appendChild(textG);
+  const bubbles = p.bubble ? [p.bubble] : [];
+  if (Array.isArray(p.bubbles)) bubbles.push(...p.bubbles);
+
+  bubbles.forEach((b) => {
+    const { w, h, lines } = bubbleSize(b.text);
+    const anchor = b.actorIndex != null ? mouths[b.actorIndex] : mouths[mouths.length - 1];
+    let cx;
+    let cy;
+    if (b.targetX !== undefined && b.targetX !== null && b.targetY !== undefined && b.targetY !== null) {
+      cx = (b.targetX / 100) * PANEL;
+      cy = (b.targetY / 100) * PANEL;
+    } else {
+      cx = anchor.x;
+      cy = clamp(anchor.y - h - 10, 0, PANEL);
+      cx = clamp(cx, w / 2, PANEL - w / 2);
     }
+
+    const drawn = drawBubble({
+      rc,
+      style: b.style,
+      cx,
+      cy,
+      w,
+      h,
+      mouthAnchor: { x: anchor.x, y: anchor.y },
+      seed,
+    });
+    const bubbleG = document.createElementNS(SVG_NS, 'g');
+    for (const s of drawn.shapes) bubbleG.appendChild(s);
+    panelG.appendChild(bubbleG);
+
+    const textG = document.createElementNS(SVG_NS, 'g');
+    const firstY = cy - ((lines.length - 1) / 2) * TEXT.LINE_H + TEXT.FONT * 0.3;
+    lines.forEach((line, k) => {
+      const t = document.createElementNS(SVG_NS, 'text');
+      t.setAttribute('x', String(cx));
+      t.setAttribute('y', String(Math.round(firstY + k * TEXT.LINE_H)));
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('font-family', 'Patrick Hand');
+      t.setAttribute('font-size', String(TEXT.FONT));
+      t.setAttribute('fill', '#111');
+      t.textContent = line;
+      textG.appendChild(t);
+    });
+    panelG.appendChild(textG);
   });
 
   return panelG;

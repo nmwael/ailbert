@@ -5,9 +5,7 @@
   <path d="M 56 74 L 60 88 L 66 91" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
   <!-- torso -->
   <path d="M 40 54 L 38 76 L 62 76 L 60 54 Z" fill="#fdfdfd" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
-  <line x1="42" y1="60" x2="50" y2="68" stroke="#111" stroke-width="1"/>
-  <line x1="46" y1="58" x2="54" y2="66" stroke="#111" stroke-width="1"/>
-  <line x1="50" y1="57" x2="58" y2="64" stroke="#111" stroke-width="1"/>
+  <path d="M 50 62 L 46 67 L 50 79 L 54 67 Z" fill="#111" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/>
   <!-- arms -->
   <path d="M 40 56 L 30 66 L 38 70" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
   <path d="M 60 56 L 70 66 L 62 70" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>

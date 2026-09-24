@@ -88,6 +88,9 @@ export function validate(panel, manifest = null) {
         }
         if (!isNumInRange(a.positionX, 0, 100)) errors.push(`${atag}.positionX: number 0-100 required`);
         if (!isNumInRange(a.positionY, 0, 100)) errors.push(`${atag}.positionY: number 0-100 required`);
+        if (a.layer !== undefined && a.layer !== null && !['back', 'main', 'front'].includes(a.layer)) {
+          errors.push(`${atag}.layer: must be one of back|main|front`);
+        }
       });
     }
     if (p.bubble !== undefined && p.bubble !== null) {
@@ -108,6 +111,47 @@ export function validate(panel, manifest = null) {
         } else if (!(man.bubbleStyles || []).includes(b.style)) {
           errors.push(`${btag}.style: '${b.style}' not in bubbleStyles enum (${man.bubbleStyles.join(', ')})`);
         }
+      }
+    }
+    if (p.bubbles !== undefined && p.bubbles !== null) {
+      const btag = `${tag}.bubbles`;
+      if (!Array.isArray(p.bubbles)) {
+        errors.push(`${btag}: must be an array when present`);
+      } else {
+        p.bubbles.forEach((b, bi) => {
+          const bbi = `${btag}[${bi}]`;
+          if (!b || typeof b !== 'object') {
+            errors.push(`${bbi}: must be an object`);
+            return;
+          }
+          if (typeof b.text !== 'string' || b.text.trim().length === 0) {
+            errors.push(`${bbi}.text: required non-empty string`);
+          } else if (b.text.length > 90) {
+            errors.push(`${bbi}.text: ${b.text.length} chars > 90 max`);
+          }
+          if (typeof b.style !== 'string') {
+            errors.push(`${bbi}.style: required string`);
+          } else if (!(man.bubbleStyles || []).includes(b.style)) {
+            errors.push(`${bbi}.style: '${b.style}' not in bubbleStyles enum (${man.bubbleStyles.join(', ')})`);
+          }
+          if (b.actorIndex !== undefined && b.actorIndex !== null) {
+            if (!Number.isInteger(b.actorIndex)) {
+              errors.push(`${bbi}.actorIndex: integer required when present`);
+            } else if (!Array.isArray(p.actors) || b.actorIndex < 0 || b.actorIndex >= p.actors.length) {
+              errors.push(`${bbi}.actorIndex: must be in 0..${p.actors.length - 1}`);
+            }
+          }
+          if (b.targetX !== undefined && b.targetX !== null && !isNumInRange(b.targetX, 0, 100)) {
+            errors.push(`${bbi}.targetX: number 0-100 when present`);
+          }
+          if (b.targetY !== undefined && b.targetY !== null && !isNumInRange(b.targetY, 0, 100)) {
+            errors.push(`${bbi}.targetY: number 0-100 when present`);
+          }
+          if (b.actorIndex === undefined || b.actorIndex === null) {
+            if (b.targetX === undefined || b.targetX === null) errors.push(`${bbi}.targetX: required unless actorIndex is present`);
+            if (b.targetY === undefined || b.targetY === null) errors.push(`${bbi}.targetY: required unless actorIndex is present`);
+          }
+        });
       }
     }
   });

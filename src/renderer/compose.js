@@ -108,7 +108,7 @@ function clamp(v, lo, hi) {
 
 export function buildPanelGroup({ dom, document, rc, p, i, seed, assetsDir }) {
   const panelG = document.createElementNS(SVG_NS, 'g');
-  panelG.appendChild(rc.rectangle(0, 0, PANEL, PANEL, { fill: '#fdfdfd', seed: seed + 0x1a2b }));
+  panelG.appendChild(rc.rectangle(0, 0, PANEL, PANEL, { fill: '#fdfdfd', stroke: '#000', strokeWidth: 6, seed: seed + 0x1a2b }));
 
   const paint = [];
 

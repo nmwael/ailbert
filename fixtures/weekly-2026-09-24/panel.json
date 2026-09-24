@@ -1,0 +1,62 @@
+{
+  "strip": {
+    "title": "Standup Zero",
+    "date": "2026-09-24"
+  },
+  "panels": [
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 42,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "The AI summarized my standup before I said anything.",
+        "targetX": 60,
+        "targetY": 30,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "meeting-room",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "frustrated",
+          "positionX": 40,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "Let it run the sprint too, so I can skip the standup as well.",
+        "targetX": 60,
+        "targetY": 30,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "server-room",
+      "actors": [
+        {
+          "id": "it",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 48,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "The two AIs keep rescheduling the meeting. It's been cancelled 9 times.",
+        "targetX": 56,
+        "targetY": 32,
+        "style": "thought"
+      }
+    }
+  ]
+}

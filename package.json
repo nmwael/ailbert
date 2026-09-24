@@ -15,7 +15,7 @@
     "lint": "node --check src/schema/validate.js && node --check src/schema/manifest-loader.js && node --check src/renderer/rough-bubble.js && node --check src/renderer/compose.js && node --check src/renderer/font.js && node --check src/renderer/render-strip.js && node --check scripts/verify_strip.js && node --check scripts/build-site.js"
   },
   "dependencies": {
-    "jsdom": "24.1.3",
+    "jsdom": "30.1.0",
     "roughjs": "4.6.6",
     "@resvg/resvg-js": "2.6.2"
   },

@@ -181,8 +181,8 @@ PROMPT
   [[ -s "$PANEL_FILE" ]] || { echo "empty panel.json" >> "$FEEDBACK_FILE"; continue; }
 
   echo "[generate-weekly] validating schema..."
-  if ! node --input-type=commonjs -e "
-    const fs = require('fs');
+  if ! node --input-type=module -e "
+    import fs from 'fs';
     const { validate } = await import('$ROOT/src/schema/validate.js');
     const panel = JSON.parse(fs.readFileSync('$PANEL_FILE','utf8'));
     const v = validate(panel);

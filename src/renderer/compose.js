@@ -163,6 +163,9 @@ export function buildPanelGroup({ dom, document, rc, p, i, seed, assetsDir }) {
     if (b.targetX !== undefined && b.targetX !== null && b.targetY !== undefined && b.targetY !== null) {
       cx = (b.targetX / 100) * PANEL;
       cy = (b.targetY / 100) * PANEL;
+      // keep bubble above the mouth to avoid covering the face
+      const maxCy = anchor.y - h / 2 - 24;
+      if (cy > maxCy) cy = Math.max(h / 2 + 6, maxCy);
     } else {
       cx = anchor.x;
       cy = clamp(anchor.y - h - 10, 0, PANEL);

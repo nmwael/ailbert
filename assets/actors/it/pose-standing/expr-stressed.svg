@@ -31,17 +31,17 @@
 <path d="M 44 54 Q 46.5 52 49 54 Q 51.5 56 54 54 Q 56 52.4 57 53.6" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
   <path d="M 61 42 Q 63 45 61 47 Q 59 45 61 42" fill="#fdfdfd" stroke="#111" stroke-width="1.2"/>
   <!-- glasses -->
-  <ellipse cx="44" cy="49" rx="3.4" ry="3.2" fill="none" stroke="#111" stroke-width="1.4"/>
-  <ellipse cx="56" cy="49" rx="3.4" ry="3.2" fill="none" stroke="#111" stroke-width="1.4"/>
-  <line x1="47.4" y1="49" x2="52.6" y2="49" stroke="#111" stroke-width="1.2"/>
-  <path d="M 40.6 49 L 38 48" stroke="#111" stroke-width="1.2"/>
-  <path d="M 59.4 49 L 62 48" stroke="#111" stroke-width="1.2"/>
+  <ellipse cx="47" cy="50" rx="2.7" ry="3.1" fill="none" stroke="#111" stroke-width="1.4"/>
+  <ellipse cx="53" cy="50" rx="2.7" ry="3.1" fill="none" stroke="#111" stroke-width="1.4"/>
+  <path d="M 49.7 50 L 50.3 50" stroke="#111" stroke-width="1.2"/>
+  <path d="M 44.3 50 L 41.5 49" stroke="#111" stroke-width="1.2"/>
+  <path d="M 55.7 50 L 58.5 49" stroke="#111" stroke-width="1.2"/>
 
   <!-- registration anchors -->
   <g id="anchor-feet" data-x="50" data-y="92" transform="translate(50 92)">
     <circle cx="0" cy="0" r="1.2" fill="#111"/>
   </g>
-  <g id="anchor-mouth" data-x="50" data-y="60" transform="translate(50 60)">
+  <g id="anchor-mouth" data-x="50" data-y="54" transform="translate(50 54)">
     <circle cx="0" cy="0" r="1" fill="#111"/>
   </g>
 </svg>

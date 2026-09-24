@@ -30,7 +30,7 @@
   <g id="anchor-feet" data-x="50" data-y="92" transform="translate(50 92)">
     <circle cx="0" cy="0" r="1.2" fill="#111"/>
   </g>
-  <g id="anchor-mouth" data-x="50" data-y="60" transform="translate(50 60)">
+  <g id="anchor-mouth" data-x="50" data-y="53" transform="translate(50 53)">
     <circle cx="0" cy="0" r="1" fill="#111"/>
   </g>
 </svg>

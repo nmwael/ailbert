@@ -41,7 +41,7 @@ function esc(s) {
 
 function panelBlock(strip, s, page) {
   const images = s.panels.map(
-    (p) => `    <img class="panel" src="${p.src}" alt="${esc(strip.title)} panel ${p.index + 1}" loading="lazy">`
+    (p) => `      <img class="panel" src="${p.src}" alt="${esc(strip.title)} panel ${p.index + 1}" loading="lazy">`
   ).join('\n');
   const back = page === 'index'
     ? '    <p class="archive-link"><a href="archive.html">Archive &rarr;</a></p>\n'
@@ -52,7 +52,9 @@ function panelBlock(strip, s, page) {
     <header>
       <h2>${esc(strip.title)}</h2>
 ${dateLine}    </header>
+    <div class="panels">
 ${images}
+    </div>
 ${back}  </article>`;
 }
 
@@ -79,8 +81,13 @@ function page(title, intro, stripsHtml, strips) {
     article.strip header { padding:1rem 1.5rem .6rem; border-bottom:1px solid rgba(17,17,17,.1); }
     article.strip h2 { margin:0; font-size:1.3rem; }
     article.strip .date { margin:.15rem 0 0; font-size:.85rem; opacity:.6; }
-    article.strip img.panel { display:block; width:100%; height:auto; }
+    article.strip .panels { display:flex; flex-wrap:nowrap; gap:8px; }
+    article.strip .panels img.panel { display:block; flex:1 1 0; min-width:0; width:100%; height:auto; }
     article.strip .archive-link { padding:.8rem 1.5rem 1rem; }
+    @media (max-width:640px) {
+      article.strip .panels { flex-wrap:wrap; }
+      article.strip .panels img.panel { flex:1 1 100%; }
+    }
     footer { text-align:center; padding:1rem; opacity:.55; font-size:.85rem; }
   </style>
 </head>

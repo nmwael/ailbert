@@ -17,12 +17,12 @@
   <ellipse cx="50" cy="41" rx="10" ry="10.5" fill="#f4c2a0" stroke="#111" stroke-width="2"/>
   <path d="M 40 42 Q 41 29 50 28 Q 59 29 60 42" fill="none" stroke="#111" stroke-width="2"/>
   <path d="M 40 42 Q 40 33 43 30" fill="none" stroke="#111" stroke-width="1.2"/>
-<line x1="44" y1="45" x2="49" y2="47" stroke="#111" stroke-width="1.4"/>
-  <line x1="57" y1="45" x2="52" y2="47" stroke="#111" stroke-width="1.4"/>
-<circle cx="46" cy="50" r="1.3" fill="#111"/>
-  <circle cx="54" cy="50" r="1.3" fill="#111"/>
+  <line x1="44" y1="36" x2="49" y2="38" stroke="#111" stroke-width="1.4"/>
+  <line x1="57" y1="36" x2="52" y2="38" stroke="#111" stroke-width="1.4"/>
+  <circle cx="46" cy="41" r="1.3" fill="#111"/>
+  <circle cx="54" cy="41" r="1.3" fill="#111"/>
 <path d="M 44 46 Q 46.5 44 49 46 Q 51.5 48 54 46 Q 56 44.4 57 45.6" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M 61 42 Q 63 45 61 47 Q 59 45 61 42" fill="#fdfdfd" stroke="#111" stroke-width="1.2"/>
+  <path d="M 61 40 Q 63 43 61 45 Q 59 43 61 40" fill="#fdfdfd" stroke="#111" stroke-width="1.2"/>
 
   <!-- registration anchors -->
   <g id="anchor-feet" data-x="50" data-y="92" transform="translate(50 92)">

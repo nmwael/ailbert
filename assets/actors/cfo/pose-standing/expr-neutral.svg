@@ -16,8 +16,8 @@
   <line x1="50" y1="62" x2="50" y2="58" stroke="#111" stroke-width="2"/>
   <!-- head -->
   <ellipse cx="50" cy="50" rx="10" ry="10.5" fill="#f4c2a0" stroke="#111" stroke-width="2"/>
-<path d="M 42 45 Q 44 39 50 39 Q 56 39 58 45" fill="none" stroke="#111" stroke-width="2"/>
-  <path d="M 42 45 Q 46 43 50 43 Q 54 43 58 45" fill="#111" stroke="#111" stroke-width="1"/>
+  <path d="M 42 42 Q 44 37 50 37 Q 56 37 58 42" fill="none" stroke="#111" stroke-width="2"/>
+  <path d="M 42 42 Q 46 40 50 40 Q 54 40 58 42" fill="#111" stroke="#111" stroke-width="1"/>
 <line x1="44" y1="46" x2="49" y2="46" stroke="#111" stroke-width="1.4"/>
   <line x1="51" y1="46" x2="56" y2="46" stroke="#111" stroke-width="1.4"/>
 <circle cx="46" cy="50" r="1.3" fill="#111"/>

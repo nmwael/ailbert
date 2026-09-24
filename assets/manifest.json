@@ -1,7 +1,7 @@
 {
   "actors": {
     "worker": {
-      "poses": ["sitting", "standing"],
+      "poses": ["standing"],
       "expressions": ["neutral", "stressed"]
     },
     "boss": {
@@ -9,7 +9,7 @@
       "expressions": ["neutral", "frustrated"]
     },
     "it": {
-      "poses": ["sitting", "standing"],
+      "poses": ["standing"],
       "expressions": ["neutral", "stressed"]
     },
     "hr": {
@@ -17,7 +17,7 @@
       "expressions": ["neutral", "cheerful"]
     },
     "intern": {
-      "poses": ["sitting", "standing"],
+      "poses": ["standing"],
       "expressions": ["neutral", "eager"]
     },
     "ceo": {

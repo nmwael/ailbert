@@ -27,7 +27,7 @@
       "actors": [
         {
           "id": "worker",
-          "pose": "sitting",
+          "pose": "standing",
           "expression": "stressed",
           "positionX": 38,
           "positionY": 90
@@ -45,7 +45,7 @@
       "actors": [
         {
           "id": "worker",
-          "pose": "sitting",
+          "pose": "standing",
           "expression": "neutral",
           "positionX": 45,
           "positionY": 90

@@ -70,7 +70,7 @@ human approval.
   "strip": { "title": "Sprint Review" },
   "panels": [
     { "background": "office",
-      "actors": [ { "id": "worker", "pose": "sitting", "expression": "stressed", "positionX": 40, "positionY": 78 } ],
+      "actors": [ { "id": "worker", "pose": "standing", "expression": "stressed", "positionX": 40, "positionY": 78 } ],
       "bubble": { "text": "The AI replaced my busywork with reviewing its busywork.", "targetX": 62, "targetY": 28, "style": "speech" } }
   ]
 }

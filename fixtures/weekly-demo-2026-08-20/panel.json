@@ -45,7 +45,7 @@
       "actors": [
         {
           "id": "intern",
-          "pose": "sitting",
+          "pose": "standing",
           "expression": "eager",
           "positionX": 48,
           "positionY": 90

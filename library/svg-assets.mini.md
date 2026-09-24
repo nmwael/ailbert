@@ -30,11 +30,11 @@ assets/manifest.json
 
 | id | poses | expressions | signature props |
 |---|---|---|---|
-| worker | sitting, standing | neutral, stressed | plain short hair |
+| worker | standing | neutral, stressed | plain short hair |
 | boss | standing | neutral, frustrated | pointy hair, tie |
-| it | sitting, standing | neutral, stressed | glasses, hoodie |
+| it | standing | neutral, stressed | glasses, hoodie |
 | hr | standing | neutral, cheerful | hair bun, clipboard |
-| intern | sitting, standing | neutral, eager | beanie, backpack strap |
+| intern | standing | neutral, eager | beanie, backpack strap |
 | ceo | standing | neutral, confident | slicked hair, tie |
 | cfo | standing | neutral, frustrated | balding, tie |
 

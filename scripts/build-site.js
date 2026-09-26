@@ -161,6 +161,10 @@ function main() {
       <div class="role"><h3>Reviewer</h3><p>Validates schema, scoring, and visual constraints. Provides feedback for iteration.</p></div>
       <div class="role"><h3>Renderer</h3><p>Deterministic rough.js renderer materializes JSON to SVG/PNG with stable seeds and z-layering.</p></div>
     </div>
+    <div class="asset-harness" style="margin-top:1.5rem;">
+      <h3 style="margin:.4rem 0 .4rem;font-size:1.05rem;">Asset Harness — AI built</h3>
+      <p>The visual library is AI-generated: actors, scenes, and props are produced via the agentic pipeline and curated into a manifest-gated asset harness. Each actor has pose/expression variants, each background is a scalable SVG, and the manifest enforces ID/pose/expression validity so the writer can never hallucinate an asset. The harness is versioned with the fixtures and rendered deterministically.</p>
+    </div>
     <p style="margin-top:1rem;opacity:.75">Built with the <a href="https://github.com/nmwael/agentic-devcontainer-feature" target="_blank" rel="noopener">agentic devcontainer feature</a> agentic pipeline. New strips every week.</p>
   </div>`;
 

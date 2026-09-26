@@ -158,10 +158,10 @@ function main() {
   const intro = `<div class="hero">
     <p>AI-generated, Dilbert-style comic strips — a weekly agentic pipeline example.</p>
     <div class="roles">
-      <div class="role"><h3>Writer</h3><p>Proposes a fresh 3-panel gag, constrained by manifest and schema. Outputs panel JSON only.</p></div>
-      <div class="role"><h3>Reviewer</h3><p>Validates schema, scoring, and visual constraints. Provides feedback for iteration.</p></div>
-      <div class="role"><h3>Renderer</h3><p>Deterministic rough.js renderer materializes JSON to SVG/PNG with stable seeds and z-layering.</p></div>
-      <div class="role asset-full"><h3>Asset Harness — AI built</h3><p>The visual library is AI-generated: actors, scenes, and props are produced via the agentic pipeline and curated into a manifest-gated asset harness. Each actor has pose/expression variants, each background is a scalable SVG, and the manifest enforces ID/pose/expression validity so the writer can never hallucinate an asset. The harness is versioned with the fixtures and rendered deterministically.</p></div>
+      <div class="role"><h3><a href="https://github.com/nmwael/ailbert/blob/main/.opencode/agent/writer.md" target="_blank" rel="noopener">Writer</a></h3><p>Proposes a fresh 3-panel gag, constrained by manifest and schema. Outputs panel JSON only.</p></div>
+      <div class="role"><h3><a href="https://github.com/nmwael/ailbert/blob/main/.opencode/agent/reviewer.md" target="_blank" rel="noopener">Reviewer</a></h3><p>Validates schema, scoring, and visual constraints. Provides feedback for iteration.</p></div>
+      <div class="role"><h3><a href="https://github.com/nmwael/ailbert/blob/main/src/renderer/compose.js" target="_blank" rel="noopener">Renderer</a></h3><p>Deterministic rough.js renderer materializes JSON to SVG/PNG with stable seeds and z-layering.</p></div>
+      <div class="role asset-full"><h3><a href="https://github.com/nmwael/ailbert/blob/main/assets/manifest.json" target="_blank" rel="noopener">Asset Harness — AI built</a></h3><p>The visual library is AI-generated: actors, scenes, and props are produced via the agentic pipeline and curated into a manifest-gated asset harness. Each actor has pose/expression variants, each background is a scalable SVG, and the manifest enforces ID/pose/expression validity so the writer can never hallucinate an asset. The harness is versioned with the fixtures and rendered deterministically.</p></div>
     </div>
     <p style="margin-top:1rem;opacity:.75">Built with the <a href="https://github.com/nmwael/agentic-devcontainer-feature" target="_blank" rel="noopener">agentic devcontainer feature</a> agentic pipeline. New strips every week.</p>
   </div>`;

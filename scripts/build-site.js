@@ -72,7 +72,13 @@ function page(title, intro, navLink, stripsHtml, strips) {
       font: 16px/1.5 Georgia, 'Times New Roman', serif; }
     header.site { text-align:center; padding:2.5rem 1rem 1rem; }
     header.site h1 { font-style:italic; font-size:2.4rem; margin:0; }
-    header.site p { margin:.4rem auto 0; max-width:44rem; opacity:.8; }
+    .hero { margin:.8rem auto 0; max-width:900px; text-align:left; }
+    .hero p { margin:0 0 .8rem; opacity:.85; }
+    .roles { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1rem; }
+    .role { background:var(--paper); border:1px solid rgba(17,17,17,.12); padding:.8rem 1rem; border-radius:6px; }
+    .role h3 { margin:.2rem 0 .4rem; font-size:1rem; }
+    .role p { font-size:.9rem; margin:0; opacity:.85; }
+    @media (max-width:800px){ .roles { grid-template-columns:1fr; } }
     main { max-width:1200px; margin:0 auto; padding:1.5rem 1rem 3rem; }
     article.strip { background:var(--paper); border:1px solid rgba(17,17,17,.15);
       box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:2.5rem; overflow:hidden; }
@@ -94,7 +100,7 @@ function page(title, intro, navLink, stripsHtml, strips) {
 <body>
   <header class="site">
     <h1>ailbert</h1>
-    <p>${intro}</p>
+    ${intro}
   </header>
   <main>
 ${stripsHtml}    <p class="bottom-nav">${navLink}</p>
@@ -148,7 +154,15 @@ function main() {
   const indexBody = latest.map((s) => panelBlock(s, s)).join('\n');
   const archiveBody = older.map((s) => panelBlock(s, s)).join('\n');
 
-  const intro = 'AI-generated, Dilbert-style comic strips — proposed by a writer agent, materialized by a deterministic rough.js renderer, verified by a scorer. <br><br>This site demonstrates the agentic pipeline from the <a href="https://github.com/nmwael/agentic-devcontainer-feature" target="_blank" rel="noopener">agentic devcontainer feature</a>: writer → reviewer → renderer roles are orchestrated via Opencode, with HITL-approved plans, deterministic rendering, and weekly GH Actions generation. New strips every week.';
+  const intro = `<div class="hero">
+    <p>AI-generated, Dilbert-style comic strips — a weekly agentic pipeline example.</p>
+    <div class="roles">
+      <div class="role"><h3>Writer</h3><p>Proposes a fresh 3-panel gag, constrained by manifest and schema. Outputs panel JSON only.</p></div>
+      <div class="role"><h3>Reviewer</h3><p>Validates schema, scoring, and visual constraints. Provides feedback for iteration.</p></div>
+      <div class="role"><h3>Renderer</h3><p>Deterministic rough.js renderer materializes JSON to SVG/PNG with stable seeds and z-layering.</p></div>
+    </div>
+    <p style="margin-top:1rem;opacity:.75">Built with the <a href="https://github.com/nmwael/agentic-devcontainer-feature" target="_blank" rel="noopener">agentic devcontainer feature</a> agentic pipeline. New strips every week.</p>
+  </div>`;
 
   writeFileSync(join(SITE, 'index.html'), page(
     'ailbert — AI-generated Dilbert-style strips',

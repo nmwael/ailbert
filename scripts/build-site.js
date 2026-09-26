@@ -100,7 +100,8 @@ function page(title, intro, navLink, stripsHtml, strips) {
 ${stripsHtml}    <p class="bottom-nav">${navLink}</p>
   </main>
   <footer>ailbert — MIT licensed. New strips every week from the weekly workflow.
-    Dilbert-style homage; not affiliated with Scott Adams or the Dilbert franchise.</footer>
+    Dilbert-style homage; not affiliated with Scott Adams or the Dilbert franchise.<br>
+    Example use of the <a href="https://github.com/nmwael/agentic-devcontainer-feature" target="_blank" rel="noopener">agentic devcontainer feature</a> agentic pipeline.</footer>
 </body>
 </html>
 `;
@@ -147,7 +148,7 @@ function main() {
   const indexBody = latest.map((s) => panelBlock(s, s)).join('\n');
   const archiveBody = older.map((s) => panelBlock(s, s)).join('\n');
 
-  const intro = 'AI-generated, Dilbert-style comic strips — proposed by a writer agent, materialized by a deterministic rough.js renderer, verified by a scorer. New strips every week.';
+  const intro = 'AI-generated, Dilbert-style comic strips — proposed by a writer agent, materialized by a deterministic rough.js renderer, verified by a scorer. <br><br>This site demonstrates the agentic pipeline from the <a href="https://github.com/nmwael/agentic-devcontainer-feature" target="_blank" rel="noopener">agentic devcontainer feature</a>: writer → reviewer → renderer roles are orchestrated via Opencode, with HITL-approved plans, deterministic rendering, and weekly GH Actions generation. New strips every week.';
 
   writeFileSync(join(SITE, 'index.html'), page(
     'ailbert — AI-generated Dilbert-style strips',

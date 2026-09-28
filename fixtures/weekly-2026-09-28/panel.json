@@ -1,0 +1,62 @@
+{
+  "strip": {
+    "title": "On-Call Compensation",
+    "date": "2026-09-28"
+  },
+  "panels": [
+    {
+      "background": "server-room",
+      "actors": [
+        {
+          "id": "cfo",
+          "pose": "standing",
+          "expression": "frustrated",
+          "positionX": 30,
+          "positionY": 90
+        }
+      ],
+      "bubble": {
+        "text": "We cut the on-call budget. The pager now apologizes.",
+        "targetX": 50,
+        "targetY": 18,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 55,
+          "positionY": 90
+        }
+      ],
+      "bubble": {
+        "text": "It woke me to say thanks for the overtime.",
+        "targetX": 45,
+        "targetY": 16,
+        "style": "thought"
+      }
+    },
+    {
+      "background": "cubicle",
+      "actors": [
+        {
+          "id": "hr",
+          "pose": "standing",
+          "expression": "cheerful",
+          "positionX": 62,
+          "positionY": 90
+        }
+      ],
+      "bubble": {
+        "text": "Your resilience bonus is 4 cents. It insisted.",
+        "targetX": 45,
+        "targetY": 16,
+        "style": "speech"
+      }
+    }
+  ]
+}

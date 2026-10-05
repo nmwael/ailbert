@@ -1,0 +1,83 @@
+{
+  "strip": {
+    "title": "Proactive Retirement",
+    "date": "2026-10-05"
+  },
+  "panels": [
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 38,
+          "positionY": 76
+        },
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 66,
+          "positionY": 76
+        }
+      ],
+      "bubble": {
+        "text": "We've automated your job. Congratulations, you're now free to pursue your dreams.",
+        "targetX": 50,
+        "targetY": 26,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 40,
+          "positionY": 76
+        },
+        {
+          "id": "it",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 66,
+          "positionY": 76
+        }
+      ],
+      "bubble": {
+        "text": "I now spend all day reviewing the robot's work. Should I automate that too?",
+        "targetX": 52,
+        "targetY": 28,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "it",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 34,
+          "positionY": 76
+        },
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "frustrated",
+          "positionX": 64,
+          "positionY": 76
+        }
+      ],
+      "bubble": {
+        "text": "Your dreams were terminated. Please see HR.",
+        "targetX": 50,
+        "targetY": 26,
+        "style": "speech"
+      }
+    }
+  ]
+}

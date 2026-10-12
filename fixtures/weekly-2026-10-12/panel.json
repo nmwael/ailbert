@@ -1,0 +1,62 @@
+{
+  "strip": {
+    "title": "Flake Policy",
+    "date": "2026-10-12"
+  },
+  "panels": [
+    {
+      "background": "server-room",
+      "actors": [
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 40,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "The test fails half the time, so it's basically passing.",
+        "targetX": 62,
+        "targetY": 26,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 45,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "If it passes on retry, ship it and log a follow-up.",
+        "targetX": 55,
+        "targetY": 26,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "cubicle",
+      "actors": [
+        {
+          "id": "it",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 42,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "I marked it 'skip.' It passes every time now.",
+        "targetX": 62,
+        "targetY": 26,
+        "style": "speech"
+      }
+    }
+  ]
+}

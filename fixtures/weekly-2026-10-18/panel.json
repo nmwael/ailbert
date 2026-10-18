@@ -1,0 +1,83 @@
+{
+  "strip": {
+    "title": "CI Flakes",
+    "date": "2026-10-18"
+  },
+  "panels": [
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 30,
+          "positionY": 78
+        },
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 70,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "The CI is flaky today.",
+        "targetX": 30,
+        "targetY": 35,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "frustrated",
+          "positionX": 30,
+          "positionY": 78
+        },
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 70,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "We must rerun it 47 times.",
+        "targetX": 30,
+        "targetY": 35,
+        "style": "shout"
+      }
+    },
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "frustrated",
+          "positionX": 30,
+          "positionY": 78
+        },
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 70,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "Now it's flaky on purpose.",
+        "targetX": 30,
+        "targetY": 35,
+        "style": "thought"
+      }
+    }
+  ]
+}

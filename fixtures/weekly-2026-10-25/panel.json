@@ -1,0 +1,69 @@
+{
+  "strip": {
+    "title": "Flaky by Design",
+    "date": "2026-10-25"
+  },
+  "panels": [
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 40,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "The CI is flaky again.",
+        "targetX": 62,
+        "targetY": 25,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "meeting-room",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 32,
+          "positionY": 78
+        },
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 68,
+          "positionY": 80
+        }
+      ],
+      "bubble": {
+        "text": "Then we'll promote the retry button to release manager.",
+        "targetX": 50,
+        "targetY": 22,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "server-room",
+      "actors": [
+        {
+          "id": "it",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 50,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "Green is a rumor we maintain in the wiki.",
+        "targetX": 55,
+        "targetY": 24,
+        "style": "whisper"
+      }
+    }
+  ]
+}

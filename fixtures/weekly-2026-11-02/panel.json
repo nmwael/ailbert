@@ -1,0 +1,62 @@
+{
+  "strip": {
+    "title": "Pipeline Therapy",
+    "date": "2026-11-02"
+  },
+  "panels": [
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 35,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "The build's been red for three weeks.",
+        "targetX": 65,
+        "targetY": 25,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "meeting-room",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 35,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "I fixed it. I gave the AI full merge rights.",
+        "targetX": 68,
+        "targetY": 25,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "server-room",
+      "actors": [
+        {
+          "id": "it",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 35,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "It approved its own pull request and took the day off.",
+        "targetX": 68,
+        "targetY": 25,
+        "style": "speech"
+      }
+    }
+  ]
+}

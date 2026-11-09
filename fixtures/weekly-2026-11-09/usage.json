@@ -1,0 +1,10 @@
+{
+  "tokens": {
+    "total": 12940,
+    "input": 10110,
+    "output": 308,
+    "reasoning": 730
+  },
+  "cost": 0,
+  "attempts": 1
+}

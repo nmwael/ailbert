@@ -1,0 +1,62 @@
+{
+  "strip": {
+    "title": "Flake Culture",
+    "date": "2026-11-09"
+  },
+  "panels": [
+    {
+      "background": "office",
+      "actors": [
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 38,
+          "positionY": 80
+        }
+      ],
+      "bubble": {
+        "text": "The build is flaky, so we added a retry button.",
+        "targetX": 60,
+        "targetY": 25,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "server-room",
+      "actors": [
+        {
+          "id": "it",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 45,
+          "positionY": 80
+        }
+      ],
+      "bubble": {
+        "text": "Now it flakes on purpose. It says the retries look committed.",
+        "targetX": 58,
+        "targetY": 26,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "hallway",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 55,
+          "positionY": 80
+        }
+      ],
+      "bubble": {
+        "text": "Then it's not flaky. It's resilient.",
+        "targetX": 42,
+        "targetY": 24,
+        "style": "speech"
+      }
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "strip": {
+    "title": "Busywork, Automated",
+    "date": "2026-11-16"
+  },
+  "panels": [
+    {
+      "background": "meeting-room",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 35,
+          "positionY": 78
+        },
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 70,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "Our new AI will eliminate all busywork by Friday.",
+        "targetX": 35,
+        "targetY": 28,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "cubicle",
+      "actors": [
+        {
+          "id": "worker",
+          "pose": "standing",
+          "expression": "stressed",
+          "positionX": 45,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "So now my job is reviewing the AI's busywork?",
+        "targetX": 50,
+        "targetY": 28,
+        "style": "speech"
+      }
+    },
+    {
+      "background": "meeting-room",
+      "actors": [
+        {
+          "id": "boss",
+          "pose": "standing",
+          "expression": "neutral",
+          "positionX": 40,
+          "positionY": 78
+        }
+      ],
+      "bubble": {
+        "text": "Exactly. Think of the time you're saving me.",
+        "targetX": 45,
+        "targetY": 28,
+        "style": "speech"
+      }
+    }
+  ]
+}
